@@ -1073,6 +1073,7 @@ body {
   animation-iteration-count: infinite;
 }
 .toUp-icon {
+  userhselect: none;
   animation: bounce 2.5s ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: reverse;
