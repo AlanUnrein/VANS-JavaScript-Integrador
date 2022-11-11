@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" href="./assets/app.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/media.css">
+    <link rel="stylesheet" href="./assets/animations.css">
+    <link rel="icon" type="image/png" href="./assets/img/logoicon.png"/>
+    <title>Vans®</title>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="overlay"></div>
+    <header class="header">
+        <nav class="navbar">
+            <img src="./assets/./img/Logo.png" alt="vans" class="navbar__logo">
+            
+            <div class="navbar__div">
+                
+                <div class="navbar__menu-label">
+                    <i class="navbar__menu-icon fa-sharp fa-solid fa-bars"></i>
+                </div>
+
+                <ul class="navbar__ul"> <!-- esconder -->
+                    <li class="navbar__li navbar__li-categories">
+
+                        <div class="navbar__categories">
+                            <a class="navbar__categories-a" href="#categories">CATEGORIAS</a>
+                            <i class="navbar__categories-i fa-solid fa-chevron-down"></i>
+                        </div>
+                        <ul class="navbar__dropdown">
+                            <li class="dropdown__item">
+                                <a href="#" class="dropdown__category">Classics</a>
+                            </li>
+                            <li class="dropdown__item">
+                                <a href="#" class="dropdown__category">Skateboarding</a>
+                            </li>
+                            <li class="dropdown__item">
+                                <a href="#" class="dropdown__category">Surf</a>
+                            </li>
+                            <li class="dropdown__item">
+                                <a href="#" class="dropdown__category">BMX</a>
+                            </li>
+                            <li class="dropdown__item">
+                                <a href="#" class="dropdown__category">Sandals</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="navbar__li">
+                        <a class="navbar__link" href="#contact">CONTACTO</a>
+                    </li>
+
+                    <li class="navbar__li">
+                        <a class="navbar__link" href="./login.html">LOGIN
+                            <i class="navbar__link-icon fa-regular fa-user"></i>
+                        </a>
+                    </li>
+
+                    <li class="navbar__li">
+                        <a class="navbar__link" href="./register.html">REGISTRATE
+                            <i class="navbar__link-icon fa-solid fa-user-plus"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="cart__shop">
+                    <div class="cart__label">
+                        <i class="cart__label-i fa-solid fa-cart-shopping"></i>
+                        <div class="cart__count"> 1 </div> 
+                        <!-- ! Renderizar cantidad desde JS -->
+                    </div>
+                    <aside class="cart hidden"> <!-- esconder -->
+                        <i class="cart__close fa-solid fa-xmark"></i>
+                        <ul class="cart__container">
+                    
+                            <!-- ! renderizar items del cart -->
+                            
+                            <li class="cart__item">
+                                <img src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2021/10_2/0/108/78/7097954.jpg" alt="" class="cart-img">
+                                <div class="cart-content">
+                                    <i class="cart-trash fa-regular fa-trash-can"></i>
+                                    <h3 class="cart-name">NOMBRE</h3>
+                                    <span class="cart-price">$34.000</span>
+                                    <div class="cart-talle">
+                                        <dd class="cart-talle-tittle">Talle</dd>
+                                        <span class="cart-talle-size">43</span>
+                                    </div>
+                                    <div class="cart-quantity-handler">
+                                        <dd class="quantity-cart-tittle">Cantidad</dd>
+                                        <span class="quantity-down" data-id=${id}>-</span>
+                                        <span class="quantity">1<!-- ${quantity} --></span>
+                                        <span class="quantity-up" data-id=${id}>+</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <h3 class="cart-total"><dd class="cart-total-description">TOTAL:</dd><span class="cart-total-value"></span></h3>
+                            <button class="cart-finally">FINALIZAR COMPRA</button>
+                        </ul>
+                    </aside>
+                        <!-- HACER CONTENIDO DEL CARRITO -->
+                </div>
+            </div>
+        </nav>
+        <div class="header__container">
+            
+            <div class="search__container">
+                <form action="" class="search-bar">
+                    <input id="search-input" type="search" name="search" pattern=".*\S.*" required>
+                    <button id="search-button" class="search-btn" type="submit">
+                    </button>
+                </form>
+            </div>
+
+            <h1 class="header__h1"><span>VANS ES</span><span>OLD SKOOL</span></h1>
+            <p class="header__p">Las Old Skool son las zapatillas clásicas de Vans y el primer modelo en lucir el icónico sidestripe de la marca. Nacieron como un calzado para skaters de los años 70´y con el correr de las décadas se transformó en un modelo básico de lifestyle.
+            </p>
+            <button class="header__button"><a href="#">DESCUBRE</a></button>
+        </div>
+        
+        
+    </header>
+    <!-- MAIN -->
+    <main class="main">
+        <section class="publicity">
+            <h2 class="section__tittle">Las clasicas de siempre</h2>
+            <div class="publicity__container">
+                <div class="publicity__item">
+                <a href="#" class="publicity__link">
+                    <img class="publicity__gif" src="./assets/img/gifs/gif1.gif" alt="Animated gif Vans">
+                </a>
+            </div>
+            <div class="publicity__item">
+                <a href="#" class="publicity__link">
+                    <img class="publicity__gif" src="./assets/img/gifs/gif3.gif" alt="Animated gif Vans">
+                </a>
+            </div>
+            <div class="publicity__item">
+                <a href="#" class="publicity__link">
+                    <img class="publicity__gif" src="./assets/img/gifs/gif2.gif" alt="Animated gif Vans">
+                </a>
+            </div>
+            </div>
+        </section>
+        <!-- ! renderizar 3 cards aleatorias desde JS -->
+        <section class="populars" id="populars">
+                <h3 class="popular__tittle">Vans mas destacadas</h3>
+                <div class="popular__container">
+                    
+                    <!-- <div class="popular">
+                        <button id="addCart" class="product__shop" ><i class="fa-solid fa-basket-shopping"></i></button>
+                        <img class="popular__img" src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2021/10_2/0/108/78/7097954.jpg" alt="">
+                        <div class="popular__text">
+                            <h3 class="popular__name">Nombre</h3>
+                            <p class="popular__description">Las zapatillas de skate clásicas con cordones U Era, tienen una parte superior de lona de doble costura duradera con lengüeta acolchada y la suela Waffle con firma de Vans</p>
+                        </div>
+                        <button id="open-product" class="product__show popular-button"><span>VER MAS</span></button>
+                    </div> -->
+
+                </div>
+            </section>
+        <section id="products">
+            <h2 class="section__tittle">Encuentra tu estilo</h2>
+            
+            <!-- CATEGORIAS -->
+            <div class="categories" id="categories">
+                <button class="category active">Todo VANS</button>
+                <button class="category" data-category="classic">Classsic</button>
+                <button class="category" data-category="skateboarding">Skateboarding</button>
+                <button class="category" data-category="surf">Surf</button>
+                <button class="category" data-category="BMX">BMX</button>
+                <button class="category" data-category="sandals">Sandals</button>
+            </div>
+
+            <!-- CONTENEDOR PRODUCTOS -->
+            <div class="products__container">
+                <!-- ! LISTA DE PRODUCTOS dede JS-->
+
+                <!-- <div class="product">
+                    <button id="addCart" class="product__shop" ><i class="fa-solid fa-basket-shopping"></i></button>
+                    <img class="product__img" src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2022/3/11/7321433.jpg" alt="">
+                    <h3 class="product__name">NOMBRE</h3>
+                    <span class="product__price">$23.000</span>
+                    <button id="open-product" class="product__show"><span>VER MAS</span></button>
+                </div> -->
+            </div>    
+            <button class="products__load"><span>SIGUIENTES</span><i class="fa-regular fa-hand-point-right"></i></button>
+            
+
+            <!-- ! renderziar producto desde JS -->
+
+            <div class="show__product show__product-closed">
+                <!-- <div class="show__product-container">
+                    <button class="show-close"><i class=" fa-solid fa-xmark"></i></button>
+                    <img src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2022/3/11/7321433.jpg" alt="Vans" class="show__product-img">
+
+
+                    <div class="show__product-body">
+                        <h2 class="show-name">NOMBRE</h2>
+                        <span class="show-price">$34.000</span>
+                        <form class="show-form">
+                            <label for="talles" class="show-label">TALLE :</label>
+                            <select class="show-select" name="talle" id="talles">
+
+                                <option value="41">41 <i class="fa-solid fa-chevron-down"></i></option>
+                                <option value="42">42 <i class="fa-solid fa-chevron-down"></i></option>
+                                <option value="43">43 <i class="fa-solid fa-chevron-down"></i></option>
+                            </select>
+                        </form>
+                        <bold class="show-form-p">
+                            <a href="#">Como saber cual es tu talle</a>
+                        </bold>
+                        <div class="show__quantity">
+                            <span class="quantity-tittle">CANTIDAD : </span>
+                            <div class="quantity-handler">
+                                <span class="quantity-down" data-id=${id}>-</span>
+                                <span class="item-quantity">1</span>
+                                <span class="quantity-up" data-id=${id}>+</span>
+                            </div>
+                            
+                        </div>
+                        <button class="red-button"><span>COMPRAR</span></button>
+                        <p class="show-description">
+                            Las zapatillas Woven Old Skool Stackform de Vans renuevan nuestra emblemática silueta Sidestripe con una versión aún más gruesa de la plataforma.",
+                            descripcion:"Las zapatillas Woven Old Skool Stackform de Vans renuevan nuestra emblemática silueta Sidestripe con una versión aún más gruesa de la plataforma. Estas zapatillas de plataforma, confeccionadas con un panel lateral de 34 mm de altura, realzan uno de los clásicos favoritos de la marca, al tiempo que aportan un nuevo toque de estilo «Off The Wall» a tu look. Además de su capellada de tela vaquera lisa tejida para crear un exclusivo diseño Checkerboard, las Woven Old Skool Stackform se rematan con un cuello acolchado para un mejor ajuste y la distintiva suela waffle de caucho.
+                        </p>
+                    </div>
+                </div> -->
+               
+            </div>
+
+        </section>
+        <button class="toUp"> <a href="#"><i class="toUp-icon fa-solid fa-angle-up"></i></a></button>
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer" id="footer">
+        <div class="footer__container-top">
+            <div class="footer__container">
+                <h2 class="footer__h2">COMPANY</h2>
+                <ul class="footer__ul">
+                    <li class="footer__li"><a class="footer__link" href="#">Términos y condiciones</a> </li>
+                    <li class="footer__li"><a class="cfooter_link" href="#">Defensa al consumidor</a> </li>
+                    <li class="footer__li"><a class="footer__link" href="#">Politicas de privacidad</a> </li>
+                    <li class="footer__li"><a class="footer__link" href="#">Guia de talles</a> </li>
+                    <li class="footer__li"><a class="footer__link" href="#">Envios y cambios</a> </li>
+                    <li class="footer__li"><a class="footer__link" href="#">Formas de pago</a> </li>
+                    <li class="footer__li"><a class="footer__link" href="#">Cómo comprar</a> </li>
+                </ul>
+            </div>
+            <div class="footer__container">
+                <h2 class="footer__h2">CONTACT</h2>
+                <ul class="footer__ul">
+                    <li class="footer__li"><a class="footer__link" href="#">Locales</a> </li>
+                    <li class="footer__li-contact">atencionclientes@vans.com.ar</li>
+                    <li class="footer__li-contact">TELÉFONO: +541125654512</li>
+                    <li class="footer__li-contact">Lun.a Vie. de 10 a 18hs Sáb de 10 a 14hs</li>
+                    <li class="footer__li"><a class="footer__link" href="#">Libro de quejas virtual</a></li>
+                </ul>
+            </div>
+            <div class="footer__container">
+                <h2 class="footer__h2">FOLLOW VANS:</h2>
+                <div class="footer__follow">
+                    <a href="#"><i class="footer__follow-i fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="footer__follow-i fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="footer__follow-i fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="footer__follow-i fa-brands fa-youtube"></i></a>
+                </div>
+            </div>    
+            <div class="footer__container">
+                <h2 class="footer__h2">NEWSLETTER:</h2>
+                <p class="footer__p">Suscribete a nuestro news para recibir las ultimas novedades de nuestros productos, eventos y precios</p>
+                <form class="footer__form">
+                    <input type="email" class="footer__input" placeholder="INGRESA TU E-MAIL">
+                    <button class="footer__button">
+                        <i class="footer__button-send fa-solid fa-angle-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="footer__container-bottom">
+            <span class="footer__span">©2022 VANS - ALL RIGHTS RESERVED</span>
+            <div class="footer__cards">
+                <img src="./assets/img/cards/mastercard.png" alt="Mastercard" class="credit-card">
+                <img src="./assets/img/cards/visa.png" alt="Visa" class="credit-card">
+                <img src="./assets/img/cards/paypal.jpg" alt="Paypal" class="credit-card">
+                <img src="./assets/img/cards/skrill.png" alt="Skrill" class="credit-card">
+            </div>
+        </div>
+        
+    </footer>
+
+    <script src="./assets/JS/data.js"></script>
+    <script src="./assets/JS/main.js"></script>
+</body>
+</html>
