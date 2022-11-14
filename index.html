@@ -15,7 +15,7 @@
 </head>
 <body>
     <!-- HEADER -->
-    <div class="overlay"></div>
+    <div class="overlay hidden"></div>
     <header class="header">
         <nav class="navbar">
             <img src="./assets/./img/Logo.png" alt="vans" class="navbar__logo">
@@ -35,19 +35,19 @@
                         </div>
                         <ul class="navbar__dropdown">
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">Classics</a>
+                                <a href="#" class="dropdown__category">CLASSICS</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">Skateboarding</a>
+                                <a href="#" class="dropdown__category">SKATEBOARDING</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">Surf</a>
+                                <a href="#" class="dropdown__category">SURF</a>
                             </li>
                             <li class="dropdown__item">
                                 <a href="#" class="dropdown__category">BMX</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">Sandals</a>
+                                <a href="#" class="dropdown__category">SANDALS</a>
                             </li>
                         </ul>
                     </li>
@@ -70,11 +70,11 @@
                 </ul>
                 <div class="cart__shop">
                     <div class="cart__label">
-                        <i class="cart__label-i fa-solid fa-cart-shopping"></i>
+                        <i class="cart__label-icon fa-solid fa-cart-shopping"></i>
                         <div class="cart__count"> 1 </div> 
                         <!-- ! Renderizar cantidad desde JS -->
                     </div>
-                    <aside class="cart hidden"> <!-- esconder -->
+                    <aside class="cart"> <!-- esconder -->
                         <i class="cart__close fa-solid fa-xmark"></i>
                         <ul class="cart__container">
                     
@@ -100,7 +100,7 @@
                             </li>
 
                             <h3 class="cart-total"><dd class="cart-total-description">TOTAL:</dd><span class="cart-total-value"></span></h3>
-                            <button class="cart-finally">FINALIZAR COMPRA</button>
+                            <button class="cart-finally"><span>FINALIZAR COMPRA</span></button>
                         </ul>
                     </aside>
                         <!-- HACER CONTENIDO DEL CARRITO -->

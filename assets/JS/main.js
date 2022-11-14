@@ -1,10 +1,14 @@
 /* navbar */
 const navbarLinks = document.querySelector(".navbar__ul");
 const categoriesDropdown = document.querySelector(".navbar__dropdown");
+const navbarMenuIcon = document.querySelector('.navbar__menu-icon');
+const navbarDropdown = document.querySelector('.navbar__dropdown');
+const navbarDropdownArrow = document.querySelector('.navbar__categories-i');
 /* cart */
 const cartShop = document.querySelector(".cart__shop");
+const cartIcon = document.querySelector('.cart__label-icon')
 const cartCount = document.querySelector(".cart__count");
-const cartContainer = document.querySelector(".cart-container");
+const cartContainer = document.querySelector(".cart");
 const total = document.querySelector(".cart-total-value");
 /* Search */
 const inputSearch = document.querySelector(".search-input");
@@ -31,7 +35,8 @@ const saveLocalStorage = (cartList) => {
   localStorage.setItem("cart", JSON.stringify(cartList));
 };
 
-// logica de renderizacion
+// ------- renderizacion del html
+
 const renderProduct = (product) => {
   const { id, nombre, precio, img } = product;
 
@@ -92,8 +97,10 @@ const renderOpenedProduct = (item) => {
           </div>`;
 };
 
+// ------ Logica de renderizacion
+
 const renderDivideProducts = (index = 0) => {
-  products.innerHTML = productController.dividedProducts[index]
+  products.innerHTML += productController.dividedProducts[index]
     .map(renderProduct)
     .join("");
 };
@@ -102,8 +109,6 @@ const renderPopularProducts = () => {
   let popularItems = productData.sort(() => Math.random() - 0.5).slice(0, 3);
   populars.innerHTML = popularItems.map(renderPopular).join("");
 };
-
-// logica de filtracion de categorias
 
 const renderFilteredProducts = (category) => {
   const productsFiltered = productData.filter(
@@ -121,6 +126,8 @@ const renderAllProducts = (index = 0, category = undefined) => {
   }
   renderFilteredProducts(category);
 };
+
+// -----logica de filtracion de categorias
 
 const changeBtnSelectedCategory = (selectedCategory) => {
   const categories = [...categoriesList];
@@ -153,7 +160,8 @@ const applyFilter = (e) => {
   } else renderAllProducts(0, e.target.dataset.category);
 };
 
-/* Ventana de producto */
+// ------Ventana de producto 
+
 const openProductWindow = (e) => {
   if (!e.target.classList.contains("product__show-span")) return;
 
@@ -170,12 +178,63 @@ const closeProductWindow = (e) => {
   productWindow.classList.add("show__product-closed");
 };
 
+/*  Abrir y cerrar carrito/menu */
+
+const toggleCart = () => {
+  cartContainer.classList.toggle('cart-open');
+  cartIcon.classList.toggle('cart__label-icon-active')
+  if(navbarLinks.classList.contains('navbar__ul-active')) {
+    navbarLinks.classList.remove('navbar__ul-active');
+    navbarMenuIcon.classList.remove('navbar__menu-icon-active');
+    return
+  }
+  overlay.classList.toggle('hidden')
+}
+const toggleMenu = () => {
+  navbarMenuIcon.classList.toggle('navbar__menu-icon-active');
+  navbarLinks.classList.toggle('navbar__ul-active');
+  if(cartContainer.classList.contains('cart-open')) {
+    cartContainer.classList.remove('cart-open');
+    cartIcon.classList.remove('cart__label-icon-active')
+    return
+  }
+  overlay.classList.toggle('hidden')
+}
+const openSubmenu = (e) => {
+  if (!e.target.classList.contains('navbar__categories-i')) return
+  else {
+    navbarDropdown.classList.toggle('navbar__dropdown-active')
+    navbarDropdownArrow.classList.toggle('navbar__categories-i-active')
+  }
+  
+}
+
+//-------- Proximos productos
+
+const nextProducts = () => {
+  renderAllProducts(productController.nextProductsIndex);
+  productController.nextProductsIndex++;
+  if(productController.nextProductsIndex == productController.productsLimit) {
+    btnNext.classList.add('hidden')
+  }
+};
+
+
+// Funcion inicializadora
+
 const init = () => {
   renderAllProducts();
   renderPopularProducts();
   categories.addEventListener("click", applyFilter);
   categoriesDropdown.addEventListener(".click", applyFilter);
+  btnNext.addEventListener('click', nextProducts);
+  cartShop.addEventListener('click', toggleCart)
+  btnMenu.addEventListener('click', toggleMenu)
+  document.addEventListener('click', openSubmenu)
   document.addEventListener("click", openProductWindow);
   document.addEventListener("click", closeProductWindow);
 };
 init();
+
+
+
