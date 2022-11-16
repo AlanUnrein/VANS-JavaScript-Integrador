@@ -18,36 +18,36 @@
     <div class="overlay hidden"></div>
     <header class="header">
         <nav class="navbar">
-            <img src="./assets/./img/Logo.png" alt="vans" class="navbar__logo">
-            
+            <a href="#">
+                <img src="./assets/./img/Logo.png" alt="vans" class="navbar__logo">
+            </a>
             <div class="navbar__div">
                 
                 <div class="navbar__menu-label">
                     <i class="navbar__menu-icon fa-sharp fa-solid fa-bars"></i>
                 </div>
 
-                <ul class="navbar__ul"> <!-- esconder -->
+                <ul class="navbar__menu">
                     <li class="navbar__li navbar__li-categories">
-
                         <div class="navbar__categories">
                             <a class="navbar__categories-a" href="#categories">CATEGORIAS</a>
                             <i class="navbar__categories-i fa-solid fa-chevron-down"></i>
                         </div>
                         <ul class="navbar__dropdown">
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">CLASSICS</a>
+                                <a href="#" data-category="classic" class="dropdown__category">CLASSICS</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">SKATEBOARDING</a>
+                                <a href="#" data-category="skateboarding" class="dropdown__category">SKATEBOARDING</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">SURF</a>
+                                <a href="#" data-category="surf" class="dropdown__category">SURF</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">BMX</a>
+                                <a href="#" data-category="BMX" class="dropdown__category">BMX</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" class="dropdown__category">SANDALS</a>
+                                <a href="#" data-category="sandals" class="dropdown__category">SANDALS</a>
                             </li>
                         </ul>
                     </li>
@@ -71,37 +71,25 @@
                 <div class="cart__shop">
                     <div class="cart__label">
                         <i class="cart__label-icon fa-solid fa-cart-shopping"></i>
-                        <div class="cart__count"> 1 </div> 
+                        <div class="cart__count hidden"></div> 
                         <!-- ! Renderizar cantidad desde JS -->
                     </div>
                     <aside class="cart"> <!-- esconder -->
                         <i class="cart__close fa-solid fa-xmark"></i>
-                        <ul class="cart__container">
-                    
+                        <div class="cart__container">
                             <!-- ! renderizar items del cart -->
-                            
-                            <li class="cart__item">
-                                <img src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2021/10_2/0/108/78/7097954.jpg" alt="" class="cart-img">
-                                <div class="cart-content">
-                                    <i class="cart-trash fa-regular fa-trash-can"></i>
-                                    <h3 class="cart-name">NOMBRE</h3>
-                                    <span class="cart-price">$34.000</span>
-                                    <div class="cart-talle">
-                                        <dd class="cart-talle-tittle">Talle</dd>
-                                        <span class="cart-talle-size">43</span>
-                                    </div>
-                                    <div class="cart-quantity-handler">
-                                        <dd class="quantity-cart-tittle">Cantidad</dd>
-                                        <span class="quantity-down" data-id=${id}>-</span>
-                                        <span class="quantity">1<!-- ${quantity} --></span>
-                                        <span class="quantity-up" data-id=${id}>+</span>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <h3 class="cart-total"><dd class="cart-total-description">TOTAL:</dd><span class="cart-total-value"></span></h3>
-                            <button class="cart-finally"><span>FINALIZAR COMPRA</span></button>
-                        </ul>
+                            <div class="cart__items"></div>
+                            <h3 class="cart-total">
+                                <dd class="cart-total-description">TOTAL:</dd>
+                                <span class="cart-total-value"></span>
+                            </h3>
+                            <button class="cart-finally">
+                                <span>FINALIZAR COMPRA</span>
+                            </button>
+                            <button class="cart-empty">
+                                <span>VACIAR CARRITO</span>
+                            </button>
+                        </div>
                     </aside>
                         <!-- HACER CONTENIDO DEL CARRITO -->
                 </div>
@@ -150,19 +138,7 @@
         <!-- ! renderizar 3 cards aleatorias desde JS -->
         <section class="populars" id="populars">
                 <h3 class="popular__tittle">Vans mas destacadas</h3>
-                <div class="popular__container">
-                    
-                    <!-- <div class="popular">
-                        <button id="addCart" class="product__shop" ><i class="fa-solid fa-basket-shopping"></i></button>
-                        <img class="popular__img" src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2021/10_2/0/108/78/7097954.jpg" alt="">
-                        <div class="popular__text">
-                            <h3 class="popular__name">Nombre</h3>
-                            <p class="popular__description">Las zapatillas de skate clásicas con cordones U Era, tienen una parte superior de lona de doble costura duradera con lengüeta acolchada y la suela Waffle con firma de Vans</p>
-                        </div>
-                        <button id="open-product" class="product__show popular-button"><span>VER MAS</span></button>
-                    </div> -->
-
-                </div>
+                <div class="popular__container"></div>
             </section>
         <section id="products">
             <h2 class="section__tittle">Encuentra tu estilo</h2>
@@ -178,61 +154,11 @@
             </div>
 
             <!-- CONTENEDOR PRODUCTOS -->
-            <div class="products__container">
-                <!-- ! LISTA DE PRODUCTOS dede JS-->
-
-                <!-- <div class="product">
-                    <button id="addCart" class="product__shop" ><i class="fa-solid fa-basket-shopping"></i></button>
-                    <img class="product__img" src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2022/3/11/7321433.jpg" alt="">
-                    <h3 class="product__name">NOMBRE</h3>
-                    <span class="product__price">$23.000</span>
-                    <button id="open-product" class="product__show"><span>VER MAS</span></button>
-                </div> -->
-            </div>    
+            <div class="products__container"></div>    
             <button class="products__load"><span>SIGUIENTES</span><i class="fa-regular fa-hand-point-right"></i></button>
             
-
-            <!-- ! renderziar producto desde JS -->
-
-            <div class="show__product show__product-closed">
-                <!-- <div class="show__product-container">
-                    <button class="show-close"><i class=" fa-solid fa-xmark"></i></button>
-                    <img src="https://mmgrim2.azureedge.net/MediaFiles/Grimoldi/2022/3/11/7321433.jpg" alt="Vans" class="show__product-img">
-
-
-                    <div class="show__product-body">
-                        <h2 class="show-name">NOMBRE</h2>
-                        <span class="show-price">$34.000</span>
-                        <form class="show-form">
-                            <label for="talles" class="show-label">TALLE :</label>
-                            <select class="show-select" name="talle" id="talles">
-
-                                <option value="41">41 <i class="fa-solid fa-chevron-down"></i></option>
-                                <option value="42">42 <i class="fa-solid fa-chevron-down"></i></option>
-                                <option value="43">43 <i class="fa-solid fa-chevron-down"></i></option>
-                            </select>
-                        </form>
-                        <bold class="show-form-p">
-                            <a href="#">Como saber cual es tu talle</a>
-                        </bold>
-                        <div class="show__quantity">
-                            <span class="quantity-tittle">CANTIDAD : </span>
-                            <div class="quantity-handler">
-                                <span class="quantity-down" data-id=${id}>-</span>
-                                <span class="item-quantity">1</span>
-                                <span class="quantity-up" data-id=${id}>+</span>
-                            </div>
-                            
-                        </div>
-                        <button class="red-button"><span>COMPRAR</span></button>
-                        <p class="show-description">
-                            Las zapatillas Woven Old Skool Stackform de Vans renuevan nuestra emblemática silueta Sidestripe con una versión aún más gruesa de la plataforma.",
-                            descripcion:"Las zapatillas Woven Old Skool Stackform de Vans renuevan nuestra emblemática silueta Sidestripe con una versión aún más gruesa de la plataforma. Estas zapatillas de plataforma, confeccionadas con un panel lateral de 34 mm de altura, realzan uno de los clásicos favoritos de la marca, al tiempo que aportan un nuevo toque de estilo «Off The Wall» a tu look. Además de su capellada de tela vaquera lisa tejida para crear un exclusivo diseño Checkerboard, las Woven Old Skool Stackform se rematan con un cuello acolchado para un mejor ajuste y la distintiva suela waffle de caucho.
-                        </p>
-                    </div>
-                </div> -->
-               
-            </div>
+            <!-- VENTANA AL PRODUCTO -->
+            <div class="product__window product__window-closed"></div>
 
         </section>
         <button class="toUp"> <a href="#"><i class="toUp-icon fa-solid fa-angle-up"></i></a></button>
@@ -253,7 +179,7 @@
                 </ul>
             </div>
             <div class="footer__container">
-                <h2 class="footer__h2">CONTACT</h2>
+                <h2 id="contact" class="footer__h2">CONTACT</h2>
                 <ul class="footer__ul">
                     <li class="footer__li"><a class="footer__link" href="#">Locales</a> </li>
                     <li class="footer__li-contact">atencionclientes@vans.com.ar</li>
@@ -293,7 +219,7 @@
         </div>
         
     </footer>
-
+    <div class="modal">Se agrego un producto al carrito</div>
     <script src="./assets/JS/data.js"></script>
     <script src="./assets/JS/main.js"></script>
 </body>
