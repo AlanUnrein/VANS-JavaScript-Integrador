@@ -322,6 +322,8 @@ body {
   color: var(--black-2);
   transition: all ease-out 0.3s;
   opacity: 30;
+  visibility: hidden;
+  opacity: 0;
 
   overflow-y: scroll;
   transform: translateX(500px);
@@ -593,8 +595,8 @@ body {
   font-family: var(--fontTittle);
   color: var(--black-2);
   transition: all ease-out 0.3s;
-  opacity: 30;
-
+  opacity: 0;
+  visibility: hidden;
   overflow-y: scroll;
   transform: translateX(500px);
   transition: all ease-in-out 0.3s;
