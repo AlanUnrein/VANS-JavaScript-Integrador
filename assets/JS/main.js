@@ -622,5 +622,6 @@ const init = () => {
   cartFinally.addEventListener("click", buyProduct);
   document.addEventListener("click", removeProductToCart);
   document.addEventListener("click", removeProductToWhitelist);
+  console.log('No llegue con el input de buscar y renderizar las categorias segun clickee en el submenu categorias, ademas no pude renderizar correctamente todos los talles escogidos en un array y mostrarlos en el cart. Te he fallado(inserte meme de dexter)');
 };
 init();
