@@ -36,7 +36,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.753);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .hello {
     grid-column: 1/2;
@@ -183,7 +183,10 @@
     align-items: center;
     gap: 30px;
     padding: 35px;
-    background-color: rgba(255, 255, 255, 0.541);
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.hello {
+    background-color: rgba(255, 255, 255, .6);
 }
 .welcome__h2, .hello__h2 {
     font-family: var(--fontTittle);

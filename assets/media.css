@@ -236,7 +236,10 @@
 @media (max-width: 480px) {
 
 /* register y login  */
-
+  .header__register {
+    background-size:cover;
+    background-position: unset;
+  }
   .register__container, .login__container {
     margin: 0;
     border-radius: unset;
