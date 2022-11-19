@@ -113,3 +113,6 @@ svg {
 body {
   min-height: 100vh;
 }
+body, html {
+  overflow-x: hidden;
+}

@@ -75,7 +75,7 @@ const renderPopular = (item) => {
             </div>`;
 };
 
-// ---- terminar el contador del producto en ventana, algun dia ----- // 
+// ---- terminar el contador del producto en ventana, algun dia ----- //
 
 const renderOpenedProduct = (item) => {
   const { id, nombre, precio, talles, img, descripcion } = item;
@@ -252,17 +252,17 @@ const closeProductWindow = (e) => {
 
 // ------ Cantidad del Icono whitelist y cart
 const checkQuantity = (element, array) => {
-  if (!array.length) { 
-      element.classList.add('hidden')
-      return
+  if (!array.length) {
+    element.classList.add("hidden");
+    return;
   } else if (array.length) {
     element.textContent = array.reduce((acc, obj) => {
-        return acc + obj.quantity
-      } ,0)
-      element.classList.remove('hidden')
-      return
-  }    
-}
+      return acc + obj.quantity;
+    }, 0);
+    element.classList.remove("hidden");
+    return;
+  }
+};
 
 // ------- Logica de botones para abrir/cerrar(whitelist, menu, cart), overlay, superposiciones
 
@@ -384,7 +384,6 @@ const nextProducts = () => {
 
 const getTotal = () => {
   return cart.reduce(
-    
     (acc, curr) => acc + Number(curr.precio) * curr.quantity,
     0
   );
@@ -427,8 +426,7 @@ const checkCartState = () => {
   hiddenBtn(cartFinally);
   hiddenBtn(cartEmpty);
   hiddenBtn(totalContainer);
-  checkQuantity(cartCount, cart)
-  console.log(cart);
+  checkQuantity(cartCount, cart);
 };
 
 const addProduct = (e) => {
@@ -552,11 +550,10 @@ const addToWhiteList = (e) => {
     alert("Ya guardaste ese producto!");
     return;
   }
-  console.log(whitelist);
 
   whitelist = [...whitelist, productSave];
-  checkWhitelistState();
   showSuccesModal("Se agrego el producto a tu lista de deseos");
+  checkWhitelistState();
 };
 
 const removeProductToWhitelist = (e) => {
@@ -622,6 +619,8 @@ const init = () => {
   cartFinally.addEventListener("click", buyProduct);
   document.addEventListener("click", removeProductToCart);
   document.addEventListener("click", removeProductToWhitelist);
-  console.log('No llegue con el input de buscar y renderizar las categorias segun clickee en el submenu categorias, ademas no pude renderizar correctamente todos los talles escogidos en un array y mostrarlos en el cart. Te he fallado(inserte meme de dexter)');
+  console.info(
+    "No llegue con el input de buscar y renderizar las categorias segun clickee en el submenu categorias, ademas no pude renderizar correctamente todos los talles escogidos en un array y mostrarlos en el cart. Te he fallado(inserte meme de dexter)"
+  );
 };
 init();
