@@ -35,19 +35,19 @@
                         </div>
                         <ul class="navbar__dropdown">
                             <li class="dropdown__item">
-                                <a href="#" data-category="classic" class="dropdown__category">CLASSICS</a>
+                                <a href="#productsContainer" data-category="classic" class="dropdown__category">CLASSICS</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" data-category="skateboarding" class="dropdown__category">SKATEBOARDING</a>
+                                <a href="#productsContainer" data-category="skateboarding" class="dropdown__category">SKATEBOARDING</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" data-category="surf" class="dropdown__category">SURF</a>
+                                <a href="#productsContainer" data-category="surf" class="dropdown__category">SURF</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" data-category="BMX" class="dropdown__category">BMX</a>
+                                <a href="#productsContainer" data-category="BMX" class="dropdown__category">BMX</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#" data-category="sandals" class="dropdown__category">SANDALS</a>
+                                <a href="#productsContainer" data-category="sandals" class="dropdown__category">SANDALS</a>
                             </li>
                         </ul>
                     </li>
@@ -68,13 +68,27 @@
                         </a>
                     </li>
                 </ul>
+
+                <div class="whitelist__shop">
+                    <div class="whitelist__label">
+                        <i class="whitelist__label-icon fa-solid fa-heart"></i>
+                        <div class="whitelist__count hidden"></div> 
+                        <!-- ! Renderizar cantidad desde JS -->
+                    </div>
+                    <aside class="whitelist">
+                        <i class="whitelist__close fa-solid fa-xmark"></i>
+                        <div class="whitelist__container"></div>   
+                    </aside>
+                </div>
                 <div class="cart__shop">
                     <div class="cart__label">
                         <i class="cart__label-icon fa-solid fa-cart-shopping"></i>
                         <div class="cart__count hidden"></div> 
                         <!-- ! Renderizar cantidad desde JS -->
                     </div>
-                    <aside class="cart"> <!-- esconder -->
+
+                    
+                    <aside class="cart">
                         <i class="cart__close fa-solid fa-xmark"></i>
                         <div class="cart__container">
                             <!-- ! renderizar items del cart -->
@@ -91,24 +105,24 @@
                             </button>
                         </div>
                     </aside>
-                        <!-- HACER CONTENIDO DEL CARRITO -->
-                </div>
+                </div>    	    
+
+                
             </div>
         </nav>
         <div class="header__container">
             
             <div class="search__container">
-                <form action="" class="search-bar">
-                    <input id="search-input" type="search" name="search" pattern=".*\S.*" required>
-                    <button id="search-button" class="search-btn" type="submit">
-                    </button>
+                <form class="search-bar">
+                    <input id="search-input" type="search" name="search" pattern=".*\S.*" required placeholder="Busca tu producto" autocomplete="off" >
+                    <button id="search-button" class="search-btn" type="submit"></button>
                 </form>
             </div>
 
             <h1 class="header__h1"><span>VANS ES</span><span>OLD SKOOL</span></h1>
-            <p class="header__p">Las Old Skool son las zapatillas clásicas de Vans y el primer modelo en lucir el icónico sidestripe de la marca. Nacieron como un calzado para skaters de los años 70´y con el correr de las décadas se transformó en un modelo básico de lifestyle.
+            <p class="header__p">Las Old Skool son las zapatillas clásicas de Vans y el primer modelo en lucir el icónico sidestripe de la marca. Nacieron como un calzado para skaters de los años 70 y con el correr de las décadas se transformó en un modelo básico de lifestyle.
             </p>
-            <button class="header__button"><a href="#">DESCUBRE</a></button>
+            <button class="header__button"><a href="#products">DESCUBRE</a></button>
         </div>
         
         
@@ -154,7 +168,7 @@
             </div>
 
             <!-- CONTENEDOR PRODUCTOS -->
-            <div class="products__container"></div>    
+            <div id="productsContainer" class="products__container"></div>    
             <button class="products__load"><span>SIGUIENTES</span><i class="fa-regular fa-hand-point-right"></i></button>
             
             <!-- VENTANA AL PRODUCTO -->

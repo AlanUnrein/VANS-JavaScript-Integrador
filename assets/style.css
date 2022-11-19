@@ -183,7 +183,7 @@ body {
     background: #f1f1f1;
   }
 }
-.navbar__menu-icon {
+.navbar__menu-label {
   display: none;
 }
 
@@ -212,11 +212,31 @@ body {
 .navbar__link-icon {
   font-size: 1.2rem;
 }
+.navbar__link {
+  padding: 10px 0;
+  position: relative;
+}
+.navbar__link:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  right: 0;
+  left: 0;
+  width: 0;
+  background-color: var(--gray);
+  transition: all 1s;
+}
+.navbar__link:hover::after {
+  transform-origin: left;
+  transition: all 1s;
+  width: 100%;
+}
 
 /* SUBMENU CATEGORIAS */
 
 .navbar__categories {
-  padding: 10px;
+  padding: 10px 10px !important;
   cursor: pointer;
 }
 .navbar__li-categories {
@@ -227,7 +247,7 @@ body {
   position: absolute;
   top: 40px;
   left: 0;
-  width: 150px;
+  width: 120px;
   z-index: 100;
   transform: scaleY(0);
   transition: all 0.5s ease-in-out;
@@ -238,49 +258,50 @@ body {
   text-align: right;
   padding: 15px;
 }
+.dropdown__category {
+  font-size: 0.8rem;
+}
 .dropdown__item:hover {
   background-color: var(--gray-2);
 }
 
-/* CART */
+/* CART y WHITELIST*/
 
 .cart__label {
   position: relative;
-  height: 100px;
-  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-left: 2px solid var(--gray);
+  padding: 10px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.3s;
+  transform: scale(1);
+  color: white;
   cursor: pointer;
 }
-
+.cart__label:hover {
+  background-color: var(--red);
+  transform: scale(1.2);
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 60%);
+}
+.cart__label-active {
+  background-color: var(--red);
+  transform: scale(1.2);
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 60%);
+}
 .cart__label-icon {
-  color: white;
   font-size: 1.2rem;
-}
-.cart__label-icon:hover {
-  color: var(--red);
-  transition: all 0.3s;
-}
-.cart__label-icon-active {
-  color: var(--red);
-}
-.cart__label-icon:hover {
-  color: var(--red);
-}
-.cart__label-icon-active {
-  color: var(--red);
-  transition: all 0.3s;
 }
 
 .cart__count {
   position: absolute;
-  right: 0px;
-  top: 25px;
+  right: -7px;
+  top: -7px;
 
   text-align: center;
-  background-color: black;
+  background-color: var(--red);
   padding: 1px 5px;
   border: 1px solid white;
   border-radius: 4px;
@@ -301,14 +322,14 @@ body {
   color: var(--black-2);
   transition: all ease-out 0.3s;
   opacity: 30;
-  
+
   overflow-y: scroll;
   transform: translateX(500px);
-  transition: all ease-in-out .3s;
+  transition: all ease-in-out 0.3s;
 }
 .open-cart {
   transform: translateX(0px);
-  transition: all ease-in-out .3s;
+  transition: all ease-in-out 0.3s;
 
   visibility: visible;
   position: absolute;
@@ -332,7 +353,7 @@ body {
   padding: 50px 0;
   background-color: white;
   text-align: center;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -405,6 +426,9 @@ body {
   font-size: 0.9rem;
   font-weight: 300;
   padding-top: 20px;
+}
+.quantity {
+  width: 10px;
 }
 .cart-quantity-handler {
   display: flex;
@@ -504,8 +528,6 @@ body {
   margin: 0 auto;
 }
 
-
-
 .products__load {
   color: var(--black-2);
   cursor: pointer;
@@ -518,6 +540,160 @@ body {
   gap: 10px;
   position: relative;
 }
+/* WHITELIST */
+
+.whitelist__label {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.3s;
+  transform: scale(1);
+  color: white;
+  cursor: pointer;
+}
+.whitelist__label:hover {
+  background-color: var(--red);
+  transform: scale(1.2);
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 60%);
+}
+.whitelist__label-active {
+  background-color: var(--red);
+  transform: scale(1.2);
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 60%);
+}
+.whitelist__label-icon {
+  font-size: 1.2rem;
+}
+.whitelist_count {
+  position: absolute;
+  right: 0px;
+  top: 25px;
+
+  text-align: center;
+  background-color: black;
+  padding: 1px 5px;
+  border: 1px solid white;
+  border-radius: 4px;
+  color: white;
+}
+.whitelist {
+  z-index: 11000;
+  position: absolute;
+  top: 102px;
+  right: 0;
+  width: 300px;
+  max-height: calc(100vh - 120px);
+
+  background-color: var(--black-2);
+  font-family: var(--fontTittle);
+  color: var(--black-2);
+  transition: all ease-out 0.3s;
+  opacity: 30;
+
+  overflow-y: scroll;
+  transform: translateX(500px);
+  transition: all ease-in-out 0.3s;
+}
+.open-whitelist {
+  transform: translateX(0px);
+  transition: all ease-in-out 0.3s;
+
+  visibility: visible;
+  position: absolute;
+  opacity: 1;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.open-whitelist::-webkit-scrollbar {
+  display: none;
+}
+.whitelist__container{
+  position: relative;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px;
+}
+.whitelist__close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  color: white;
+  background-color: var(--red);
+  z-index: 1001;
+  cursor: pointer;
+}
+.whitelist__close:hover {
+  background-color: var(--red-white);
+}
+
+.whitelist__item {
+  position: relative;
+  max-width: 100%;
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.whitelist__items-empty {
+  padding: 50px;
+  background-color: white;
+  text-align: center;
+  font-size: .8rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.whitelist-trash {
+  cursor: pointer;
+  color: var(--black-2);
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+.whitelist-trash:hover {
+  color: var(--red);
+  transition: all 0.3s;
+}
+.whitelist-img {
+  height: fit-content;
+  width: 100px;
+  max-width: 50%;
+}
+.whitelist-content {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.whitelist-name {
+  display: inline;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+.whitelist-price {
+  font-size: 1.1rem;
+  padding-top: 5px;
+  color: var(--red);
+  font-weight: 500;
+}
+.whitelist-button {
+  height: 35px;
+  font-size: .9rem;
+}
+
+
+
 
 /* * HEADER */
 .header__container {
@@ -782,9 +958,7 @@ body {
   letter-spacing: 2px;
   padding: 5px;
 }
-.product__shop {
-  width: 35px;
-  height: 45px;
+.product__fav {
   color: white;
   border-radius: 5px;
   background-color: var(--red);
@@ -793,9 +967,14 @@ body {
   right: 10px;
   cursor: pointer;
 }
-.product__shop:hover {
+.product__fav:hover {
   animation: sacudir 1.3s ease-in-out;
 }
+.product__fav i {
+  padding: 10px 5px;
+  display: inline-block;
+}
+
 
 .product__price {
   font-size: 1rem;
@@ -851,10 +1030,11 @@ body {
 
   transition: all ease-in-out 0.5s;
   background-color: white;
-  padding: 20px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.6);
 }
 .product__window-container {
+  position: relative;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -937,6 +1117,18 @@ body {
 .window-select {
   cursor: pointer;
 }
+.product__window-span {
+  padding: 5px 10px !important;
+} 
+.product__window-body {
+  position: relative;
+}
+.product__window-container .product__fav {
+  left: 10px;
+  right: unset;
+}
+
+
 .window-quantity {
   display: flex;
   gap: 20px;
@@ -978,7 +1170,7 @@ body {
 .red-button {
   position: relative;
   cursor: pointer;
-  transition: all 1s ease;
+  transition: all .5s ease;
   overflow: hidden;
   background-color: var(--red);
 
@@ -991,7 +1183,7 @@ body {
 }
 .red-button span {
   position: relative;
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
 .red-button::before {
   content: "";
@@ -1001,7 +1193,7 @@ body {
   height: 100%;
   background-color: var(--black-2);
   position: absolute;
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
 .red-button:hover::before {
   left: 0;
@@ -1222,9 +1414,9 @@ body {
   letter-spacing: 2px;
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 1);
   transform: translateY(100%);
-  transition: all ease-in-out .3s;
+  transition: all ease-in-out 0.3s;
 }
 .modal-active {
   transform: translateY(0);
-  transition: all ease-in-out .3s;
+  transition: all ease-in-out 0.3s;
 }

@@ -1,18 +1,22 @@
 /* navbar */
 const navbarMenu = document.querySelector(".navbar__menu");
 const categoriesDropdown = document.querySelector(".navbar__dropdown");
-const navbarMenuIcon = document.querySelector(".navbar__menu-icon");
+const navbarMenuIcon = document.querySelector(".navbar__menu-label");
 const navbarDropdown = document.querySelector(".navbar__dropdown");
 const navbarDropdownArrow = document.querySelector(".navbar__categories-i");
 const dropdownItem = document.querySelector(".navbar__dropdown");
 /* cart */
 const cartShop = document.querySelector(".cart__label");
-const cartIcon = document.querySelector(".cart__label-icon");
 const cartCount = document.querySelector(".cart__count");
 const cartMenu = document.querySelector(".cart");
 const cartItems = document.querySelector(".cart__items");
 const totalContainer = document.querySelector(".cart-total");
 const total = document.querySelector(".cart-total-value");
+/* whitelist */
+const whitelistLabel = document.querySelector(".whitelist__label");
+const whitelistCount = document.querySelector(".whitelist__count");
+const whitelistMenu = document.querySelector(".whitelist");
+const whitelistContainer = document.querySelector(".whitelist__container");
 /* Search */
 const inputSearch = document.querySelector(".search-input");
 /* Categories */
@@ -34,20 +38,22 @@ const cartEmpty = document.querySelector(".cart-empty");
 /* Modal */
 const modal = document.querySelector(".modal");
 
-// ------- Array de cart
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+// ------- CARRITO y WHITELIST
 
-const saveLocalStorage = (cartList) => {
-  localStorage.setItem("cart", JSON.stringify(cartList));
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let whitelist = JSON.parse(localStorage.getItem("whitelist")) || [];
+
+const saveLocalStorage = (itemJSON, item) => {
+  localStorage.setItem(`${item}`, JSON.stringify(itemJSON));
 };
 
-// ------- renderizacion del html
+// ------- TEMPLATE DE PRODUCTOS
 
 const renderProduct = (product) => {
   const { id, nombre, precio, img } = product;
 
   return `<div class="product">
-            <button class="product__shop" data-id='${id}' data-name='${nombre}' data-price='${precio}' data-img='${img}'><i class="fa-regular fa-heart"></i></button>
+            <div class="product__fav"><i data-id='${id}' data-nombre='${nombre}' data-precio='${precio}' data-img='${img}' class="addWhitelist fa-regular fa-heart"></i></div>
             <img class="product__img" src="${img}" alt="Vans - ${nombre}">
             <h3 class="product__name">${nombre}</h3>
             <span class="product__price">$${precio}</span>
@@ -55,10 +61,11 @@ const renderProduct = (product) => {
         </div>`;
 };
 const renderPopular = (item) => {
-  const { id, img, nombre, descripcionBreve } = item;
+  const { id, img, nombre, descripcionBreve, precio } = item;
 
   return ` <div class="popular">
-                <button class="product__shop" data-id='${id}'><i class="fa-regular fa-heart"></i></button>
+                <div class="product__fav" ><i data-img="${img}" data-precio="${precio}"data-nombre="${nombre}"data-id='${id}' class="addWhitelist fa-regular fa-heart"></i>
+                </div>
                 <img class="popular__img" src="${img}" alt="${nombre}">
                 <div class="popular__text">
                     <h3 class="popular__name">${nombre}</h3>
@@ -67,15 +74,21 @@ const renderPopular = (item) => {
                 <button class="product__show popular-button" ><span class="product__window-span" data-item='${id}'>VER MAS</span></button>
             </div>`;
 };
+
+// ---- terminar el contador del producto en ventana, algun dia ----- // 
+
 const renderOpenedProduct = (item) => {
   const { id, nombre, precio, talles, img, descripcion } = item;
-  const quantity = 1
+  const quantity = 1;
 
   return `<div class="product__window-container">
             <img src="${img}" alt="Vans-${nombre}" class="product__window-img">
 
+            <div class="product__fav">
+              <i data-img="${img}" data-precio="${precio}"data-nombre="${nombre}"data-id='${id}' class="addWhitelist fa-regular fa-heart"></i>
+              </div>
+            
             <button class="window-close"><i class="window-close-icon fa-solid fa-xmark"></i></button>
-
             <div class="product__window-body">
               <h2 class="window-name">${nombre}</h2>
               <span class="window-price">$${precio}</span>
@@ -93,7 +106,8 @@ const renderOpenedProduct = (item) => {
               <bold class="window-form-p">
                     <a href="#">Como saber cual es tu talle</a>
               </bold>
-              <div class="window-quantity">
+              
+              <div class="window-quantity hidden">
                   <span class="quantity-tittle">CANTIDAD : </span>
                   <div class="quantity-handler">
                       <span class="quantity-down" data-id=${id}>-</span>
@@ -101,7 +115,9 @@ const renderOpenedProduct = (item) => {
                       <span class="quantity-up" data-id=${id}>+</span>
                   </div>    
               </div>
+
               <button data-nombre="${nombre}" data-talle="${talles}" data-precio="${precio}" data-img="${img}" data-id="${id}" data-quantity="${quantity}"  class="red-button addCart"><span  data-nombre="${nombre}" data-talle="${talles}" data-precio="${precio}" data-img="${img}" data-id="${id}" data-quantity="${quantity}" class="addCart">COMPRAR</span></button>
+              
               <p class="window-description">
                   ${descripcion}
               </p>
@@ -109,7 +125,7 @@ const renderOpenedProduct = (item) => {
           </div>`;
 };
 const renderCart = (cartProduct) => {
-  const { id, img, precio, nombre, talle, quantity } = cartProduct;
+  const { id, img, precio, nombre, talles, quantity } = cartProduct;
 
   return `
   <div class="cart__item">
@@ -120,7 +136,7 @@ const renderCart = (cartProduct) => {
       <span class="cart-price">$${precio}</span>
       <div class="cart-talle">
           <dd class="cart-talle-tittle">Talle:</dd>
-          <span class="cart-talle-size">${talle}</span>
+          <span class="cart-talle-size">${talles}</span>
       </div>
       <div class="cart-quantity-handler">
           <dd class="quantity-cart-tittle">Cantidad:</dd>
@@ -132,9 +148,23 @@ const renderCart = (cartProduct) => {
   </div>
   `;
 };
+const renderWhitelist = (whitelistProduct) => {
+  const { img, nombre, precio, id } = whitelistProduct;
 
-// ------ Logica de renderizacion
+  return `
+  <div class="whitelist__item">
+      <img src="${img}" alt="${nombre}" class="whitelist-img">
+      <div class="whitelist-content">
+        <i data-id="${id}" class="whitelist-trash fa-regular fa-trash-can"></i>
+        <h3 class="whitelist-name">${nombre}</h3>
+        <span class="whitelist-price">$${precio}</span>
+        <button class="product__show whitelist-button"><span class="product__window-span product__whitelist-span" data-item='${id}'>VER MAS</span></button>
+      </div>
+  </div>
+  `;
+};
 
+// ------ LOGICA DE RENDERIZACION
 
 const renderDivideProducts = (index = 0) => {
   products.innerHTML += productController.dividedProducts[index]
@@ -164,7 +194,7 @@ const renderAllProducts = (index = 0, category = undefined) => {
   renderFilteredProducts(category);
 };
 
-// -----logica de filtracion de categorias
+// -----LOGICA DE FILTRACION DE CATEGORIAS
 
 const changeBtnSelectedCategory = (selectedCategory) => {
   const categories = [...categoriesList];
@@ -200,7 +230,7 @@ const applyFilter = (e) => {
   }
 };
 
-// ------Ventana de producto
+// ------ VENTANA DE PRODUCTO
 
 const openProductWindow = (e) => {
   if (!e.target.classList.contains("product__window-span")) return;
@@ -211,6 +241,8 @@ const openProductWindow = (e) => {
     (product) => Number(product.id) === Number(selectedProduct)
   );
   productWindow.innerHTML = renderOpenedProduct(open[0]);
+  whitelistMenu.classList.remove("open-whitelist");
+  overlay.classList.add("hidden");
 };
 
 const closeProductWindow = (e) => {
@@ -218,55 +250,110 @@ const closeProductWindow = (e) => {
   productWindow.classList.add("product__window-closed");
 };
 
-/*  Abrir y cerrar carrito/menu */
+// ------ Cantidad del Icono whitelist y cart
+const checkQuantity = (element, array) => {
+  if (!array.length) { 
+      element.classList.add('hidden')
+      return
+  } else if (array.length) {
+    element.textContent = array.reduce((acc, obj) => {
+        return acc + obj.quantity
+      } ,0)
+      element.classList.remove('hidden')
+      return
+  }    
+}
+
+// ------- Logica de botones para abrir/cerrar(whitelist, menu, cart), overlay, superposiciones
 
 const toggleCart = () => {
   cartMenu.classList.toggle("open-cart");
-  cartIcon.classList.toggle("cart__label-icon-active");
+  cartShop.classList.toggle("cart__label-active");
   if (navbarMenu.classList.contains("open-menu")) {
     navbarMenu.classList.remove("open-menu");
-    navbarMenuIcon.classList.remove("navbar__menu-icon-active");
+    navbarMenuIcon.classList.remove("navbar__menu-label-active");
+    return;
+  }
+  if (whitelistMenu.classList.contains("open-whitelist")) {
+    whitelistMenu.classList.remove("open-whitelist");
+    whitelistLabel.classList.remove("whitelist__label-active");
     return;
   }
   overlay.classList.toggle("hidden");
 };
+
+const toggleWhitelist = () => {
+  whitelistMenu.classList.toggle("open-whitelist");
+  whitelistLabel.classList.toggle("whitelist__label-active");
+  if (navbarMenu.classList.contains("open-menu")) {
+    navbarMenu.classList.remove("open-menu");
+    navbarMenuIcon.classList.remove("navbar__menu-label-active");
+    return;
+  }
+  if (cartMenu.classList.contains("open-cart")) {
+    cartMenu.classList.remove("open-cart");
+    cartShop.classList.remove("cart__label-active");
+    return;
+  }
+  overlay.classList.toggle("hidden");
+};
+
 const toggleMenu = () => {
-  navbarMenuIcon.classList.toggle("navbar__menu-icon-active");
+  navbarMenuIcon.classList.toggle("navbar__menu-label-active");
   navbarMenu.classList.toggle("open-menu");
   if (cartMenu.classList.contains("open-cart")) {
     cartMenu.classList.remove("open-cart");
-    cartIcon.classList.remove("cart__label-icon-active");
+    cartShop.classList.remove("cart__label-active");
+    return;
+  }
+  if (whitelistMenu.classList.contains("open-whitelist")) {
+    whitelistMenu.classList.remove("open-whitelist");
+    whitelistLabel.classList.remove("whitelist__label-active");
     return;
   }
   overlay.classList.toggle("hidden");
 };
+
 const closeOnScroll = () => {
   if (
     !navbarMenu.classList.contains("open-menu") &&
-    !cartMenu.classList.contains("open-cart")
+    !cartMenu.classList.contains("open-cart") &&
+    !whitelistMenu.classList.contains("open-whitelist")
   )
     return;
-
   navbarMenu.classList.remove("open-menu");
-  navbarMenuIcon.classList.remove("navbar__menu-icon-active");
+  navbarMenuIcon.classList.remove("navbar__menu-label-active");
   cartMenu.classList.remove("open-cart");
-  cartIcon.classList.remove("cart__label-icon-active");
+  cartShop.classList.remove("cart__label-active");
+  whitelistMenu.classList.remove("open-whitelist");
+  whitelistLabel.classList.remove("whitelist__label-active");
   overlay.classList.add("hidden");
 };
 
 const closeOnOverlayClick = () => {
   navbarMenu.classList.remove("open-menu");
-  navbarMenuIcon.classList.remove("navbar__menu-icon-active");
+  navbarMenuIcon.classList.remove("navbar__menu-label-active");
   cartMenu.classList.remove("open-cart");
-  cartIcon.classList.remove("cart__label-icon-active");
+  cartShop.classList.remove("cart__label-active");
+  whitelistMenu.classList.remove("open-whitelist");
+  whitelistLabel.classList.remove("whitelist__label-active");
   overlay.classList.add("hidden");
 };
+
 const closeCart = (e) => {
   if (!e.target.classList.contains("cart__close")) return;
   cartMenu.classList.remove("open-cart");
-  cartIcon.classList.remove("cart__label-icon-active");
+  cartShop.classList.remove("cart__label-active");
   overlay.classList.add("hidden");
 };
+
+const closeWhitelist = (e) => {
+  if (!e.target.classList.contains("whitelist__close")) return;
+  whitelistMenu.classList.remove("open-whitelist");
+  whitelistLabel.classList.remove("whitelist__label-active");
+  overlay.classList.add("hidden");
+};
+
 const openSubmenu = (e) => {
   if (!e.target.classList.contains("navbar__categories-i")) return;
   else {
@@ -275,7 +362,15 @@ const openSubmenu = (e) => {
   }
 };
 
-//-------- Proximos productos
+const hiddenBtn = (btn) => {
+  if (!cart.length) {
+    btn.classList.add("hidden");
+  } else {
+    btn.classList.remove("hidden");
+  }
+};
+
+//-------- Boton de proximos productos
 
 const nextProducts = () => {
   renderAllProducts(productController.nextProductsIndex);
@@ -285,94 +380,247 @@ const nextProducts = () => {
   }
 };
 
-//--------- Logica del carrito
-const hiddenBtn = (btn) => {
-  if (!cart.length) {
-    btn.classList.add("hidden");
-  } else {
-    btn.classList.remove("hidden");
-  }
-};
+//--------- CARRITO
+
 const getTotal = () => {
-    return cart.reduce((acc, curr) => acc + Number(curr.precio) * curr.quantity,0)
-  }
+  return cart.reduce(
+    
+    (acc, curr) => acc + Number(curr.precio) * curr.quantity,
+    0
+  );
+};
 const displayTotal = () => {
-  total.textContent = `$${getTotal()}`
+  total.textContent = `$${getTotal()}`;
 };
 const renderCartContents = () => {
   if (!cart.length) {
     cartItems.innerHTML = `<p class="cart__items-empty">No hay productos en el carrito</p>`;
     return;
   }
-  cartItems.innerHTML = cart.map((itemCart) => renderCart(itemCart)).join('');
+  cartItems.innerHTML = cart.map((itemCart) => renderCart(itemCart)).join("");
 };
+
 const existingProductInCart = (product) => {
-  return cart.find((item => item.id === product.id))
-}
-const addUnit = (product) => {
-  cart = cart.map ((item)=> {
-    return item.id === product.id ? {...item, quantity:item.quantity + 1} : item
-  })
-}
+  return cart.find((item) => item.id === product.id);
+};
+
 const createCartProduct = (product) => {
-  cart = [...cart, {...product, quantity: 1}]
-}
-const createProductDataCart = (img, talle, nombre, id, precio) => {
-  return {img, talle, nombre, id, precio}
-}
+  cart = [...cart, { ...product, quantity: 1 }];
+};
+
+const createProductDataCart = (img, talles, nombre, id, precio) => {
+  return { img, talles, nombre, id, precio };
+};
+
 const showSuccesModal = (msg) => {
-    modal.classList.add('modal-active')
-    modal.textContent = msg
-    setTimeout(()=> {
-      modal.classList.remove('modal-active')
-    }, 1500)
-}
+  modal.classList.add("modal-active");
+  modal.textContent = msg;
+  setTimeout(() => {
+    modal.classList.remove("modal-active");
+  }, 1500);
+};
+
 const checkCartState = () => {
-  saveLocalStorage(cart)
-  renderCartContents()
-  displayTotal()
-  hiddenBtn(cartFinally)
-  hiddenBtn(cartEmpty)
-  hiddenBtn(totalContainer)
-}
+  saveLocalStorage(cart, "cart");
+  renderCartContents();
+  displayTotal();
+  hiddenBtn(cartFinally);
+  hiddenBtn(cartEmpty);
+  hiddenBtn(totalContainer);
+  checkQuantity(cartCount, cart)
+  console.log(cart);
+};
 
 const addProduct = (e) => {
-  if(!e.target.classList.contains('addCart')) return
+  if (!e.target.classList.contains("addCart")) return;
 
-  const talle = document.querySelector('.window-select').value
-  const {img, nombre, id, precio} = e.target.dataset;
-  const product = createProductDataCart(img, talle, nombre, id, precio);
+  let talles = document.querySelector(".window-select").value;
 
-  if(existingProductInCart(product)) {
-    addUnit(product);
-    showSuccesModal('Se agrego una unidad del producto al carrito')
+  const { img, nombre, id, precio } = e.target.dataset;
+  const product = createProductDataCart(img, talles, nombre, id, precio);
+
+  if (existingProductInCart(product)) {
+    addUnitCart(product);
+    showSuccesModal("Se agrego una unidad del producto al carrito");
   } else {
-    createCartProduct(product)
-    showSuccesModal('Se agrego un elemento al carrito')
+    createCartProduct(product);
+    showSuccesModal("Se agrego un elemento al carrito");
   }
-  checkCartState()
-  console.log(product);
-}
+  checkCartState();
+};
 
-// Funcion inicializadora
+const addUnitCart = (product) => {
+  cart = cart.map((item) => {
+    return item.id === product.id
+      ? { ...item, quantity: item.quantity + 1 }
+      : item;
+  });
+};
+
+const subtractUnitCart = (product) => {
+  cart = cart.map((item) => {
+    return item.id === product.id
+      ? { ...item, quantity: item.quantity - 1 }
+      : item;
+  });
+};
+
+const removeProductCart = (existinProduct) => {
+  cart = cart.filter((product) => product.id !== existinProduct.id);
+  checkCartState();
+};
+
+// Logica de botones dentro del carrito
+
+const minusBtnAction = (id) => {
+  const existingProductInCart = cart.find((product) => product.id === id);
+  if (existingProductInCart.quantity === 1) {
+    if (window.confirm("¿Deseas quitar el producto del carrito?")) {
+      removeProductCart(existingProductInCart);
+    }
+    return;
+  }
+  subtractUnitCart(existingProductInCart);
+};
+
+const plusBtnAction = (id) => {
+  const existingProductInCart = cart.find((product) => product.id === id);
+  addUnitCart(existingProductInCart);
+};
+
+const changeQuantity = (e) => {
+  if (e.target.classList.contains("quantity-down")) {
+    minusBtnAction(e.target.dataset.id);
+  } else if (e.target.classList.contains("quantity-up")) {
+    plusBtnAction(e.target.dataset.id);
+  }
+  checkCartState();
+};
+
+const removeAllProductsToCart = () => {
+  if (!confirm("¿Desea vaciar el carrito?")) return;
+  cart = [];
+  cartMenu.classList.remove("open-cart");
+  cartShop.classList.remove("cart__label-active");
+  overlay.classList.add("hidden");
+  checkCartState();
+};
+
+const buyProduct = () => {
+  if (!confirm("¿Desea completar su compra?")) return;
+  cart = [];
+  cartMenu.classList.remove("open-cart");
+  cartShop.classList.remove("cart__label-active");
+  overlay.classList.add("hidden");
+  alert("Gracias por su compra!");
+  checkCartState();
+};
+
+// ---- WHITELIST y logica de botones para eliminar producto del whitelist y cart
+
+const renderWhitelistContents = () => {
+  if (!whitelist.length) {
+    whitelistContainer.innerHTML =
+      '<p class="whitelist__items-empty">No hay productos en tu lista de deseos</p>';
+    return;
+  }
+  whitelistContainer.innerHTML = whitelist
+    .map((item) => renderWhitelist(item))
+    .join("");
+};
+
+const existingProductInWhitelist = (product) => {
+  return whitelist.find((item) => item.id === product.id);
+};
+
+const checkWhitelistState = () => {
+  renderWhitelistContents();
+  saveLocalStorage(whitelist, "whitelist");
+};
+
+const createProductWhiteList = (img, nombre, precio, id) => {
+  return { img, nombre, precio, id };
+};
+
+const addToWhiteList = (e) => {
+  if (!e.target.classList.contains("addWhitelist")) return;
+
+  const { img, nombre, id, precio } = e.target.dataset;
+  const productSave = createProductWhiteList(img, nombre, precio, id);
+
+  if (existingProductInWhitelist(productSave)) {
+    alert("Ya guardaste ese producto!");
+    return;
+  }
+  console.log(whitelist);
+
+  whitelist = [...whitelist, productSave];
+  checkWhitelistState();
+  showSuccesModal("Se agrego el producto a tu lista de deseos");
+};
+
+const removeProductToWhitelist = (e) => {
+  if (!e.target.classList.contains("whitelist-trash")) return;
+
+  const toDelete = Number(e.target.dataset.id);
+
+  if (!confirm("¿Quieres remover este producto de tu lista de deseos")) return;
+  whitelist = whitelist.filter((item) => item.id != toDelete);
+
+  if (!whitelist.length) {
+    whitelistMenu.classList.remove("open-whitelist");
+    whitelistLabel.classList.remove("whitelist__label-active");
+    overlay.classList.add("hidden");
+  }
+  checkWhitelistState();
+};
+
+const removeProductToCart = (e) => {
+  if (!e.target.classList.contains("cart-trash")) return;
+
+  const toDelete = Number(e.target.dataset.id);
+
+  if (!confirm("¿Quieres remover este producto del carrito?")) return;
+  cart = cart.filter((item) => item.id != toDelete);
+
+  if (!cart.length) {
+    cartMenu.classList.remove("open-cart");
+    cartShop.classList.remove("cart__label-active");
+    overlay.classList.add("hidden");
+  }
+  checkCartState();
+};
+
+// FUNCION INICIALIZADORA
 
 const init = () => {
   renderAllProducts();
-  checkCartState()
+  checkCartState();
+  checkWhitelistState();
   renderPopularProducts();
   categories.addEventListener("click", applyFilter);
   categoriesDropdown.addEventListener(".click", applyFilter);
   btnNext.addEventListener("click", nextProducts);
-  cartIcon.addEventListener("click", toggleCart);
+  cartShop.addEventListener("click", toggleCart);
+  whitelistLabel.addEventListener("click", toggleWhitelist);
   document.addEventListener("click", closeCart);
+  document.addEventListener("click", closeWhitelist);
   btnMenu.addEventListener("click", toggleMenu);
   window.addEventListener("scroll", closeOnScroll);
   overlay.addEventListener("click", closeOnOverlayClick);
   document.addEventListener("click", openSubmenu);
   document.addEventListener("click", openProductWindow);
   document.addEventListener("click", closeProductWindow);
-  productWindow.addEventListener('click', addProduct)
+  productWindow.addEventListener("click", addProduct);
+  cartItems.addEventListener("click", changeQuantity);
   document.addEventListener("DOMContentLoaded", renderCartContents);
   document.addEventListener("DOMContentLoaded", displayTotal);
+  populars.addEventListener("click", addToWhiteList);
+  products.addEventListener("click", addToWhiteList);
+  productWindow.addEventListener("click", addToWhiteList);
+  cartEmpty.addEventListener("click", removeAllProductsToCart);
+  cartFinally.addEventListener("click", buyProduct);
+  document.addEventListener("click", removeProductToCart);
+  document.addEventListener("click", removeProductToWhitelist);
 };
 init();
