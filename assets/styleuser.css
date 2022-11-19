@@ -42,6 +42,7 @@
     grid-column: 1/2;
     grid-row: 1;
     padding: 35px;
+    
 }
 /* Form register*/
 .register__input:focus ~ .register__label,

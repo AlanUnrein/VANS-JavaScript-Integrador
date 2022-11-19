@@ -695,6 +695,7 @@ body {
 }
 
 /* * HEADER */
+
 .header__container {
   position: relative;
   display: flex;
