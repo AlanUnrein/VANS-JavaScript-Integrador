@@ -144,6 +144,35 @@
 @media (max-width: 768px) {
   /* Header */
 
+  /* Register y login */
+  .register__container, .login__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .register, .login {
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+  }
+  .hello h2, .welcome h2 {
+    font-size: 1.7rem;
+    text-align: center;
+  }
+
+  .register__form, .login__form {
+    padding: 10px;
+  }
+  .welcome, .hello {
+    padding: 50px 30px;
+  }
+  
+
+
   /* main */
   .popular {
     height: fit-content;
@@ -205,6 +234,35 @@
 /* MOBILE 340px - 480px */
 
 @media (max-width: 480px) {
+
+/* register y login  */
+
+  .register__container, .login__container {
+    margin: 0;
+    border-radius: unset;
+  }
+  .login, .register {
+      width: 100%;
+      max-width: 100vw;
+      padding: 30px 20px;
+  }
+  /*  Form  */    
+  
+  /* forget password */    
+  .login__forget {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .login__register {
+      display: flex;
+      flex-direction: column;
+  }
+  .register__box {
+    width: 190px;
+  }
+  
+
   /* Header */
   .navbar {
     background-color: var(--red);
