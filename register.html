@@ -31,24 +31,24 @@
                 <ul class="navbar__menu">
                     <li class="navbar__li navbar__li-categories">
                         <div class="navbar__categories">
-                            <a class="navbar__categories-a" href="#categories">CATEGORIAS</a>
+                            <a class="navbar__categories-a" href="./index.html">CATEGORIAS</a>
                             <i class="navbar__categories-i fa-solid fa-chevron-down"></i>
                         </div>
                         <ul class="navbar__dropdown">
                             <li class="dropdown__item">
-                                <a href="#productsContainer" data-category="classic" class="dropdown__category">CLASSICS</a>
+                                <a href="./index.html" data-category="classic" class="dropdown__category">CLASSICS</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#productsContainer" data-category="skateboarding" class="dropdown__category">SKATEBOARDING</a>
+                                <a href="./index.html" data-category="skateboarding" class="dropdown__category">SKATEBOARDING</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#productsContainer" data-category="surf" class="dropdown__category">SURF</a>
+                                <a href="./index.html" data-category="surf" class="dropdown__category">SURF</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#productsContainer" data-category="BMX" class="dropdown__category">BMX</a>
+                                <a href="./index.html" data-category="BMX" class="dropdown__category">BMX</a>
                             </li>
                             <li class="dropdown__item">
-                                <a href="#productsContainer" data-category="sandals" class="dropdown__category">SANDALS</a>
+                                <a href="./index.html" data-category="sandals" class="dropdown__category">SANDALS</a>
                             </li>
                         </ul>
                     </li>
@@ -140,6 +140,71 @@
                 <p class="hello__p">Registrate para recibir notificaciones sobre nuestras nuevas Vans, promociones y beneficios solo para miembros.<br>Si ya tienes cuenta, haz click <a style="border-bottom: 1px solid black ;" href="./login.html">aqui</a>.</p>
             </section>
     </header>
+
+    <!-- Oculte tood el resto de elementos para que pueda funcionar el js del menu y demas , hasta poder hacerlo mas con react-->
+
+    <main class="main" style="display: none;">
+        <section class="publicity">
+          <h2 class="section__tittle">Las clasicas de siempre</h2>
+          <div class="publicity__container">
+            <div class="publicity__item">
+              <a href="#" class="publicity__link">
+                <img
+                  class="publicity__gif"
+                  src="./assets/img/gifs/gif1.gif"
+                  alt="Animated gif Vans"
+                />
+              </a>
+            </div>
+            <div class="publicity__item">
+              <a href="#" class="publicity__link">
+                <img
+                  class="publicity__gif"
+                  src="./assets/img/gifs/gif3.gif"
+                  alt="Animated gif Vans"
+                />
+              </a>
+            </div>
+            <div class="publicity__item">
+              <a href="#" class="publicity__link">
+                <img
+                  class="publicity__gif"
+                  src="./assets/img/gifs/gif2.gif"
+                  alt="Animated gif Vans"
+                />
+              </a>
+            </div>
+          </div>
+        </section>
+        <section class="populars" id="populars">
+          <h3 class="popular__tittle">Vans mas destacadas</h3>
+          <div class="popular__container"></div>
+        </section>
+        <section id="products">
+          <h2 class="section__tittle">Encuentra tu estilo</h2>
+  
+          <!-- CATEGORIAS -->
+          <div class="categories" id="categories">
+            <button class="category active">Todo VANS</button>
+            <button class="category" data-category="classic">Classsic</button>
+            <button class="category" data-category="skateboarding">
+              Skateboarding
+            </button>
+            <button class="category" data-category="surf">Surf</button>
+            <button class="category" data-category="BMX">BMX</button>
+            <button class="category" data-category="sandals">Sandals</button>
+          </div>
+  
+          <!-- CONTENEDOR PRODUCTOS -->
+          <div id="productsContainer" class="products__container"></div>
+          <button class="products__load">
+            <span>SIGUIENTES</span><i class="fa-regular fa-hand-point-right"></i>
+          </button>
+  
+          <!-- VENTANA AL PRODUCTO -->
+        </section>
+    </main>
+    <div class="product__window product__window-closed"></div>
     <!-- FOOTER -->
     <footer class="footer" id="footer">
         <div class="footer__container-top">
@@ -200,7 +265,7 @@
         <a href="#"><i class="toUp-icon fa-solid fa-angle-up"></i></a>
     </button>
     <div class="modal">Se agrego un producto al carrito</div>
-    <!-- <script src="./assets/JS/data.js"></script> -->
-    <!-- <script src="./assets/JS/main.js"></script> -->
+    <script src="./assets/JS/data.js"></script>
+    <script src="./assets/JS/main.js"></script>
 </body>
 </html>

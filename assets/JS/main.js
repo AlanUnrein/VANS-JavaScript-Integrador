@@ -5,6 +5,7 @@ const navbarMenuIcon = document.querySelector(".navbar__menu-label");
 const navbarDropdown = document.querySelector(".navbar__dropdown");
 const navbarDropdownArrow = document.querySelector(".navbar__categories-i");
 const dropdownItem = document.querySelector(".navbar__dropdown");
+const categoryDropdown = document.querySelector('.dropdown__item');
 /* cart */
 const cartShop = document.querySelector(".cart__label");
 const cartCount = document.querySelector(".cart__count");
@@ -124,8 +125,12 @@ const renderOpenedProduct = (item) => {
             </div>
           </div>`;
 };
+
+// reparar renderizacion de talles 
+
 const renderCart = (cartProduct) => {
   const { id, img, precio, nombre, talles, quantity } = cartProduct;
+
 
   return `
   <div class="cart__item">
@@ -229,6 +234,18 @@ const applyFilter = (e) => {
     productController.nextProductsIndex = 1;
   }
 };
+const applyFilterDropdown = (e) => {
+  if (!e.target.classList.contains("dropdown__category")) return;
+  changeFilterState(e);
+  if (!e.target.dataset.category) {
+    products.innerHTML = "";
+    renderAllProducts();
+  } else {
+    renderAllProducts(0, e.target.dataset.category);
+    productController.nextProductsIndex = 1;
+    // algo
+  }
+}
 
 // ------ VENTANA DE PRODUCTO
 
@@ -429,10 +446,14 @@ const checkCartState = () => {
   checkQuantity(cartCount, cart);
 };
 
+
+let talles = []
 const addProduct = (e) => {
   if (!e.target.classList.contains("addCart")) return;
 
-  let talles = document.querySelector(".window-select").value;
+  
+  let talle = document.querySelector(".window-select").value;
+  talles = [...talles, talle]
 
   const { img, nombre, id, precio } = e.target.dataset;
   const product = createProductDataCart(img, talles, nombre, id, precio);
@@ -475,6 +496,9 @@ const minusBtnAction = (id) => {
   if (existingProductInCart.quantity === 1) {
     if (window.confirm("¿Deseas quitar el producto del carrito?")) {
       removeProductCart(existingProductInCart);
+      cartMenu.classList.remove("open-cart");
+      cartShop.classList.remove("cart__label-active");
+      overlay.classList.add("hidden");
     }
     return;
   }
@@ -619,8 +643,9 @@ const init = () => {
   cartFinally.addEventListener("click", buyProduct);
   document.addEventListener("click", removeProductToCart);
   document.addEventListener("click", removeProductToWhitelist);
+  categoriesDropdown.addEventListener('click', applyFilterDropdown )
   console.info(
-    "No llegue con el input de buscar y renderizar las categorias segun clickee en el submenu categorias, ademas no pude renderizar correctamente todos los talles escogidos en un array y mostrarlos en el cart. Te he fallado(inserte meme de dexter)"
+    "No llegue con el input de buscar, ademas no pude renderizar correctamente todos los talles escogidos en un array y mostrarlos en el cart. Te he fallado(inserte meme de dexter)"
   );
 };
 init();

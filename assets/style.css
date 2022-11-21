@@ -256,10 +256,10 @@ body {
 .dropdown__item {
   cursor: pointer;
   text-align: right;
-  padding: 15px;
 }
 .dropdown__category {
   font-size: 0.8rem;
+  padding: 15px;
 }
 .dropdown__item:hover {
   background-color: var(--gray-2);
