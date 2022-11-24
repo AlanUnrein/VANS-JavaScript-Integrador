@@ -446,14 +446,11 @@ const checkCartState = () => {
   checkQuantity(cartCount, cart);
 };
 
-
-let talles = []
 const addProduct = (e) => {
   if (!e.target.classList.contains("addCart")) return;
 
   
-  let talle = document.querySelector(".window-select").value;
-  talles = [...talles, talle]
+  let talles = document.querySelector(".window-select").value;
 
   const { img, nombre, id, precio } = e.target.dataset;
   const product = createProductDataCart(img, talles, nombre, id, precio);
