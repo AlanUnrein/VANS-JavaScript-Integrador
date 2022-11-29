@@ -114,7 +114,7 @@
     border: none;
   }
   .cart__label-icon,
-  .whitelist__label-icon {
+  .wishlist__label-icon {
     font-size: 2rem;
   }
 
@@ -313,7 +313,7 @@
   .cart-trash {
     font-size: 1.5rem;
   }
-  .whitelist__label {
+  .wishlist__label {
     position: absolute;
     bottom: -75px;
     left: 15px;

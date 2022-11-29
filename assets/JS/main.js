@@ -13,11 +13,11 @@ const cartMenu = document.querySelector(".cart");
 const cartItems = document.querySelector(".cart__items");
 const totalContainer = document.querySelector(".cart-total");
 const total = document.querySelector(".cart-total-value");
-/* whitelist */
-const whitelistLabel = document.querySelector(".whitelist__label");
-const whitelistCount = document.querySelector(".whitelist__count");
-const whitelistMenu = document.querySelector(".whitelist");
-const whitelistContainer = document.querySelector(".whitelist__container");
+/* wishlist */
+const wishlistLabel = document.querySelector(".wishlist__label");
+const wishlistCount = document.querySelector(".wishlist__count");
+const wishlistMenu = document.querySelector(".wishlist");
+const wishlistContainer = document.querySelector(".wishlist__container");
 /* Search */
 const inputSearch = document.querySelector(".search-input");
 /* Categories */
@@ -39,10 +39,10 @@ const cartEmpty = document.querySelector(".cart-empty");
 /* Modal */
 const modal = document.querySelector(".modal");
 
-// ------- CARRITO y WHITELIST
+// ------- CARRITO y WISHLIST
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let whitelist = JSON.parse(localStorage.getItem("whitelist")) || [];
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
 const saveLocalStorage = (itemJSON, item) => {
   localStorage.setItem(`${item}`, JSON.stringify(itemJSON));
@@ -54,7 +54,7 @@ const renderProduct = (product) => {
   const { id, nombre, precio, img } = product;
 
   return `<div class="product">
-            <div class="product__fav"><i data-id='${id}' data-nombre='${nombre}' data-precio='${precio}' data-img='${img}' class="addWhitelist fa-regular fa-heart"></i></div>
+            <div class="product__fav"><i data-id='${id}' data-nombre='${nombre}' data-precio='${precio}' data-img='${img}' class="addWishlist fa-regular fa-heart"></i></div>
             <img class="product__img" src="${img}" alt="Vans - ${nombre}">
             <h3 class="product__name">${nombre}</h3>
             <span class="product__price">$${precio}</span>
@@ -65,7 +65,7 @@ const renderPopular = (item) => {
   const { id, img, nombre, descripcionBreve, precio } = item;
 
   return ` <div class="popular">
-                <div class="product__fav" ><i data-img="${img}" data-precio="${precio}"data-nombre="${nombre}"data-id='${id}' class="addWhitelist fa-regular fa-heart"></i>
+                <div class="product__fav" ><i data-img="${img}" data-precio="${precio}"data-nombre="${nombre}"data-id='${id}' class="addWishlist fa-regular fa-heart"></i>
                 </div>
                 <img class="popular__img" src="${img}" alt="${nombre}">
                 <div class="popular__text">
@@ -86,7 +86,7 @@ const renderOpenedProduct = (item) => {
             <img src="${img}" alt="Vans-${nombre}" class="product__window-img">
 
             <div class="product__fav">
-              <i data-img="${img}" data-precio="${precio}"data-nombre="${nombre}"data-id='${id}' class="addWhitelist fa-regular fa-heart"></i>
+              <i data-img="${img}" data-precio="${precio}"data-nombre="${nombre}"data-id='${id}' class="addWishlist fa-regular fa-heart"></i>
               </div>
             
             <button class="window-close"><i class="window-close-icon fa-solid fa-xmark"></i></button>
@@ -153,17 +153,17 @@ const renderCart = (cartProduct) => {
   </div>
   `;
 };
-const renderWhitelist = (whitelistProduct) => {
-  const { img, nombre, precio, id } = whitelistProduct;
+const renderWishlist = (wishlistProduct) => {
+  const { img, nombre, precio, id } = wishlistProduct;
 
   return `
-  <div class="whitelist__item">
-      <img src="${img}" alt="${nombre}" class="whitelist-img">
-      <div class="whitelist-content">
-        <i data-id="${id}" class="whitelist-trash fa-regular fa-trash-can"></i>
-        <h3 class="whitelist-name">${nombre}</h3>
-        <span class="whitelist-price">$${precio}</span>
-        <button class="product__show whitelist-button"><span class="product__window-span product__whitelist-span" data-item='${id}'>VER MAS</span></button>
+  <div class="wishlist__item">
+      <img src="${img}" alt="${nombre}" class="wishlist-img">
+      <div class="wishlist-content">
+        <i data-id="${id}" class="wishlist-trash fa-regular fa-trash-can"></i>
+        <h3 class="wishlist-name">${nombre}</h3>
+        <span class="wishlist-price">$${precio}</span>
+        <button class="product__show wishlist-button"><span class="product__window-span product__wishlist-span" data-item='${id}'>VER MAS</span></button>
       </div>
   </div>
   `;
@@ -258,7 +258,7 @@ const openProductWindow = (e) => {
     (product) => Number(product.id) === Number(selectedProduct)
   );
   productWindow.innerHTML = renderOpenedProduct(open[0]);
-  whitelistMenu.classList.remove("open-whitelist");
+  wishlistMenu.classList.remove("open-wishlist");
   overlay.classList.add("hidden");
 };
 
@@ -267,7 +267,7 @@ const closeProductWindow = (e) => {
   productWindow.classList.add("product__window-closed");
 };
 
-// ------ Cantidad del Icono whitelist y cart
+// ------ Cantidad del Icono wishlist y cart
 const checkQuantity = (element, array) => {
   if (!array.length) {
     element.classList.add("hidden");
@@ -281,7 +281,7 @@ const checkQuantity = (element, array) => {
   }
 };
 
-// ------- Logica de botones para abrir/cerrar(whitelist, menu, cart), overlay, superposiciones
+// ------- Logica de botones para abrir/cerrar(wishlist, menu, cart), overlay, superposiciones
 
 const toggleCart = () => {
   cartMenu.classList.toggle("open-cart");
@@ -291,17 +291,17 @@ const toggleCart = () => {
     navbarMenuIcon.classList.remove("navbar__menu-label-active");
     return;
   }
-  if (whitelistMenu.classList.contains("open-whitelist")) {
-    whitelistMenu.classList.remove("open-whitelist");
-    whitelistLabel.classList.remove("whitelist__label-active");
+  if (wishlistMenu.classList.contains("open-wishlist")) {
+    wishlistMenu.classList.remove("open-wishlist");
+    wishlistLabel.classList.remove("wishlist__label-active");
     return;
   }
   overlay.classList.toggle("hidden");
 };
 
-const toggleWhitelist = () => {
-  whitelistMenu.classList.toggle("open-whitelist");
-  whitelistLabel.classList.toggle("whitelist__label-active");
+const toggleWishlist = () => {
+  wishlistMenu.classList.toggle("open-wishlist");
+  wishlistLabel.classList.toggle("wishlist__label-active");
   if (navbarMenu.classList.contains("open-menu")) {
     navbarMenu.classList.remove("open-menu");
     navbarMenuIcon.classList.remove("navbar__menu-label-active");
@@ -323,9 +323,9 @@ const toggleMenu = () => {
     cartShop.classList.remove("cart__label-active");
     return;
   }
-  if (whitelistMenu.classList.contains("open-whitelist")) {
-    whitelistMenu.classList.remove("open-whitelist");
-    whitelistLabel.classList.remove("whitelist__label-active");
+  if (wishlistMenu.classList.contains("open-wishlist")) {
+    wishlistMenu.classList.remove("open-wishlist");
+    wishlistLabel.classList.remove("wishlist__label-active");
     return;
   }
   overlay.classList.toggle("hidden");
@@ -335,15 +335,15 @@ const closeOnScroll = () => {
   if (
     !navbarMenu.classList.contains("open-menu") &&
     !cartMenu.classList.contains("open-cart") &&
-    !whitelistMenu.classList.contains("open-whitelist")
+    !wishlistMenu.classList.contains("open-wishlist")
   )
     return;
   navbarMenu.classList.remove("open-menu");
   navbarMenuIcon.classList.remove("navbar__menu-label-active");
   cartMenu.classList.remove("open-cart");
   cartShop.classList.remove("cart__label-active");
-  whitelistMenu.classList.remove("open-whitelist");
-  whitelistLabel.classList.remove("whitelist__label-active");
+  wishlistMenu.classList.remove("open-wishlist");
+  wishlistLabel.classList.remove("wishlist__label-active");
   overlay.classList.add("hidden");
 };
 
@@ -352,8 +352,8 @@ const closeOnOverlayClick = () => {
   navbarMenuIcon.classList.remove("navbar__menu-label-active");
   cartMenu.classList.remove("open-cart");
   cartShop.classList.remove("cart__label-active");
-  whitelistMenu.classList.remove("open-whitelist");
-  whitelistLabel.classList.remove("whitelist__label-active");
+  wishlistMenu.classList.remove("open-wishlist");
+  wishlistLabel.classList.remove("wishlist__label-active");
   overlay.classList.add("hidden");
 };
 
@@ -364,10 +364,10 @@ const closeCart = (e) => {
   overlay.classList.add("hidden");
 };
 
-const closeWhitelist = (e) => {
-  if (!e.target.classList.contains("whitelist__close")) return;
-  whitelistMenu.classList.remove("open-whitelist");
-  whitelistLabel.classList.remove("whitelist__label-active");
+const closeWishlist = (e) => {
+  if (!e.target.classList.contains("wishlist__close")) return;
+  wishlistMenu.classList.remove("open-wishlist");
+  wishlistLabel.classList.remove("wishlist__label-active");
   overlay.classList.add("hidden");
 };
 
@@ -449,7 +449,7 @@ const checkCartState = () => {
 const addProduct = (e) => {
   if (!e.target.classList.contains("addCart")) return;
 
-  
+  // Aca es donde quiero meter el input select de los talles en el producto que estoy mandando al carro
   let talles = document.querySelector(".window-select").value;
 
   const { img, nombre, id, precio } = e.target.dataset;
@@ -535,62 +535,62 @@ const buyProduct = () => {
   checkCartState();
 };
 
-// ---- WHITELIST y logica de botones para eliminar producto del whitelist y cart
+// ---- WISHLIST y logica de botones para eliminar producto del wishlist y cart
 
-const renderWhitelistContents = () => {
-  if (!whitelist.length) {
-    whitelistContainer.innerHTML =
-      '<p class="whitelist__items-empty">No hay productos en tu lista de deseos</p>';
+const renderWishlistContents = () => {
+  if (!wishlist.length) {
+    wishlistContainer.innerHTML =
+      '<p class="wishlist__items-empty">No hay productos en tu lista de deseos</p>';
     return;
   }
-  whitelistContainer.innerHTML = whitelist
-    .map((item) => renderWhitelist(item))
+  wishlistContainer.innerHTML = wishlist
+    .map((item) => renderWishlist(item))
     .join("");
 };
 
-const existingProductInWhitelist = (product) => {
-  return whitelist.find((item) => item.id === product.id);
+const existingProductInWishlist = (product) => {
+  return wishlist.find((item) => item.id === product.id);
 };
 
-const checkWhitelistState = () => {
-  renderWhitelistContents();
-  saveLocalStorage(whitelist, "whitelist");
+const checkWishlistState = () => {
+  renderWishlistContents();
+  saveLocalStorage(wishlist, "wishlist");
 };
 
-const createProductWhiteList = (img, nombre, precio, id) => {
+const createProductWishlist = (img, nombre, precio, id) => {
   return { img, nombre, precio, id };
 };
 
-const addToWhiteList = (e) => {
-  if (!e.target.classList.contains("addWhitelist")) return;
+const addToWishlist = (e) => {
+  if (!e.target.classList.contains("addWishlist")) return;
 
   const { img, nombre, id, precio } = e.target.dataset;
-  const productSave = createProductWhiteList(img, nombre, precio, id);
+  const productSave = createProductWishlist(img, nombre, precio, id);
 
-  if (existingProductInWhitelist(productSave)) {
+  if (existingProductInWishlist(productSave)) {
     alert("Ya guardaste ese producto!");
     return;
   }
 
-  whitelist = [...whitelist, productSave];
+  wishlist = [...wishlist, productSave];
   showSuccesModal("Se agrego el producto a tu lista de deseos");
-  checkWhitelistState();
+  checkWishlistState();
 };
 
-const removeProductToWhitelist = (e) => {
-  if (!e.target.classList.contains("whitelist-trash")) return;
+const removeProductToWishlist = (e) => {
+  if (!e.target.classList.contains("wishlist-trash")) return;
 
   const toDelete = Number(e.target.dataset.id);
 
   if (!confirm("¿Quieres remover este producto de tu lista de deseos")) return;
-  whitelist = whitelist.filter((item) => item.id != toDelete);
+  wishlist = wishlist.filter((item) => item.id != toDelete);
 
-  if (!whitelist.length) {
-    whitelistMenu.classList.remove("open-whitelist");
-    whitelistLabel.classList.remove("whitelist__label-active");
+  if (!wishlist.length) {
+    wishlistMenu.classList.remove("open-wishlist");
+    wishlistLabel.classList.remove("wishlist__label-active");
     overlay.classList.add("hidden");
   }
-  checkWhitelistState();
+  checkWishlistState();
 };
 
 const removeProductToCart = (e) => {
@@ -614,15 +614,15 @@ const removeProductToCart = (e) => {
 const init = () => {
   renderAllProducts();
   checkCartState();
-  checkWhitelistState();
+  checkWishlistState();
   renderPopularProducts();
   categories.addEventListener("click", applyFilter);
   categoriesDropdown.addEventListener(".click", applyFilter);
   btnNext.addEventListener("click", nextProducts);
   cartShop.addEventListener("click", toggleCart);
-  whitelistLabel.addEventListener("click", toggleWhitelist);
+  wishlistLabel.addEventListener("click", toggleWishlist);
   document.addEventListener("click", closeCart);
-  document.addEventListener("click", closeWhitelist);
+  document.addEventListener("click", closeWishlist);
   btnMenu.addEventListener("click", toggleMenu);
   window.addEventListener("scroll", closeOnScroll);
   overlay.addEventListener("click", closeOnOverlayClick);
@@ -633,13 +633,13 @@ const init = () => {
   cartItems.addEventListener("click", changeQuantity);
   document.addEventListener("DOMContentLoaded", renderCartContents);
   document.addEventListener("DOMContentLoaded", displayTotal);
-  populars.addEventListener("click", addToWhiteList);
-  products.addEventListener("click", addToWhiteList);
-  productWindow.addEventListener("click", addToWhiteList);
+  populars.addEventListener("click", addToWishlist);
+  products.addEventListener("click", addToWishlist);
+  productWindow.addEventListener("click", addToWishlist);
   cartEmpty.addEventListener("click", removeAllProductsToCart);
   cartFinally.addEventListener("click", buyProduct);
   document.addEventListener("click", removeProductToCart);
-  document.addEventListener("click", removeProductToWhitelist);
+  document.addEventListener("click", removeProductToWishlist);
   categoriesDropdown.addEventListener('click', applyFilterDropdown )
   console.info(
     "No llegue con el input de buscar, ademas no pude renderizar correctamente todos los talles escogidos en un array y mostrarlos en el cart. Te he fallado(inserte meme de dexter)"
